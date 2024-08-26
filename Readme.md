@@ -36,3 +36,8 @@ Welcome to **RANDZO** - a fun and challenging number guessing game! Test your in
    ```bash
    ./RANDZO
 
+## OR
+
+[Click here](https://gitwhisperer.github.io/RANDZO/)
+
+
