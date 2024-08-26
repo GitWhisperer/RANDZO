@@ -26,3 +26,13 @@ Welcome to **RANDZO** - a fun and challenging number guessing game! Test your in
    ```bash
    git clone https://github.com/GitWhisperer/RANDZO.git
    cd RANDZO
+
+2. **Compile**:
+   ```bash
+   gcc RANDZO.c -o RANDZO
+
+
+1. **Run**:
+   ```bash
+   ./RANDZO
+
