@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RANDZO: The Number Guessing Game</title>
+    <style>
+        body {
+            background-color: #282c34;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            background-color: #3b3f4a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            width: 80%;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #61dafb;
+            color: #282c34;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+        button:hover {
+            background-color: #21a1f1;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        .rules {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>RANDZO: The Number Guessing Game</h1>
+        <p>Try to guess the randomly generated number!</p>
+        <div class="rules">
+            <h2>Game Rules:</h2>
+            <ul>
+                <li>A random number with two decimal places has been generated.</li>
+                <li>The number can be positive, negative, or zero.</li>
+                <li>Your task is to guess this number.</li>
+                <li>After each guess, you will receive feedback:</li>
+                <ul>
+                    <li><strong>'Too high!'</strong> if your guess is greater than the number.</li>
+                    <li><strong>'Too low!'</strong> if your guess is less than the number.</li>
+                    <li><strong>'Invalid input!'</strong> if you enter a non-numeric value.</li>
+                </ul>
+                <li>Keep guessing until you find the correct number.</li>
+                <li>The game will tell you how many guesses it took to get the correct answer.</li>
+            </ul>
+            <p>Good luck!</p>
+        </div>
+        <input type="text" id="userGuess" placeholder="Enter your guess">
+        <div>
+            <button id="guessButton" onclick="playGame()">Guess</button>
+            <button id="revealButton" onclick="revealAnswer()">Reveal Answer</button>
+        </div>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        let integerPart = Math.floor(Math.random() * 10000) * (Math.random() > 0.5 ? -1 : 1);
+        let decimalPart = Math.floor(Math.random() * 100);
+        let randomNumber = parseFloat(integerPart + '.' + decimalPart).toFixed(2);
+
+        let guessCount = 0;
+
+        document.getElementById('userGuess').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                playGame();
+            }
+        });
+
+        function playGame() {
+            let userGuess = document.getElementById('userGuess').value.trim();
+
+            // Check for cheat code
+            if (userGuess === "bool_cheat") {
+                displayMessage(`The number is ${randomNumber}.`, "yellow");
+                return;
+            }
+
+            // Validate the input to ensure it's a number
+            if (isNaN(userGuess) || userGuess === "") {
+                displayMessage("Invalid input! Please enter a valid number.", "orange");
+                return;
+            }
+
+            userGuess = parseFloat(userGuess).toFixed(2);
+            guessCount++;
+
+            if (userGuess > randomNumber) {
+                displayMessage("Too high!", "red");
+            } else if (userGuess < randomNumber) {
+                displayMessage("Too low!", "green");
+            } else {
+                displayMessage(`You guessed the number in ${guessCount} guesses! The number was ${randomNumber}.`, "white");
+                resetGame();
+            }
+        }
+
+        function revealAnswer() {
+            displayMessage(`The number was ${randomNumber}. The game has been reset.`, "yellow");
+            resetGame();
+        }
+
+        function displayMessage(message, color) {
+            let messageElement = document.getElementById('message');
+            messageElement.innerText = message;
+            messageElement.style.color = color;
+        }
+
+        function resetGame() {
+            integerPart = Math.floor(Math.random() * 10000) * (Math.random() > 0.5 ? -1 : 1);
+            decimalPart = Math.floor(Math.random() * 100);
+            randomNumber = parseFloat(integerPart + '.' + decimalPart).toFixed(2);
+            guessCount = 0;
+        }
+    </script>
+
+</body>
+</html>
