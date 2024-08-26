@@ -24,7 +24,7 @@ Welcome to **RANDZO** - a fun and challenging number guessing game! Test your in
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/GitWhisperer/RANDZO.git
+   git clone https://github.com/gitwhisperer/RANDZO.git
    cd RANDZO
 
 2. **Compile**:
